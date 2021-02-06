@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.drive.*;
 import edu.wpi.first.wpilibj.I2C;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
@@ -38,7 +37,7 @@ public class Robot extends TimedRobot {
   private Intake m_intake;
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-  private Vision m_pixy2;
+  //private Vision m_pixy2;
   private HookMechanism m_hook;
   private Victor shootingMotor;
   //ports
@@ -88,7 +87,7 @@ public class Robot extends TimedRobot {
     
     m_ultrasonic = new UltrasonicSensor(0);
     m_intake = new Intake(0, 1, 0, 1);
-    m_pixy2 = new Vision();
+    //m_pixy2 = new Vision();
     m_hook = new HookMechanism();
     RightFrontMotor.setInverted(true);
     LeftRearMotor.setInverted(true);
@@ -116,7 +115,7 @@ public class Robot extends TimedRobot {
     Color detectedColor = m_colorSensor.getColor();
     double distance = m_ultrasonic.getInches();
     SmartDashboard.putNumber("Distance:", distance); 
-    m_pixy2.trackVisionTarget();
+    //m_pixy2.trackVisionTarget();
     
 
     /**
@@ -188,15 +187,15 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     DriveController.driveCartesian(xboxControl.getY(Hand.kLeft)*throttlevalue, -xboxControl.getX(Hand.kLeft)*throttlevalue, -xboxControl.getX(Hand.kRight));
-    if(xboxControl.getAButton()){
-      if(m_pixy2.x1<150){
-        DriveController.driveCartesian(0, 0, .5);
-      }
-      if(m_pixy2.x1>170){
-        DriveController.driveCartesian(0, 0, -.5);
-      }
+    //if(xboxControl.getAButton()){
+    //  if(m_pixy2.x1<150){
+    //    DriveController.driveCartesian(0, 0, .5);
+    //  }
+    //  if(m_pixy2.x1>170){
+    //    DriveController.driveCartesian(0, 0, -.5);
+    //  }
       
-    }
+    //}
     m_intake.checkButton(xboxControl);
     if(xboxControl.getTriggerAxis(Hand.kRight)>.1){
       shootingMotor.set(1);
